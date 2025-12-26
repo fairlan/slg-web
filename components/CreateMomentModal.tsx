@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { X, Image as ImageIcon, Gift, Ticket, Loader2, Check, Share2 } from 'lucide-react';
-import { toast } from 'sonner@2.0.3';
+import { toast } from 'sonner';
 
 type MomentType = 'moment' | 'redpack' | 'coupon';
 type RedpackRecipientMode = 'select-now' | 'select-later';

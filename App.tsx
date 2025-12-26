@@ -12,7 +12,7 @@ import { ConnectionsView } from './components/Connections/ConnectionsView';
 import { MeView } from './components/Me/MeView';
 import { OnboardingDemo } from './components/Onboarding/OnboardingDemo';
 import { Toaster } from './components/ui/sonner';
-import { toast } from 'sonner@2.0.3';
+import { toast } from 'sonner';
 
 interface Place {
   id: string;
@@ -187,7 +187,7 @@ export default function App() {
   const [isScannerOpen, setIsScannerOpen] = useState(false);
   const [isLocationOpen, setIsLocationOpen] = useState(false);
   const [selectedLocation, setSelectedLocation] = useState('上海·静安区');
-  const [selectedCategory, setSelectedCategory] = useState('全部');
+  const [selectedCategory, setSelectedCategory] = useState('all');
   const [isDockVisible, setIsDockVisible] = useState(true);
   const [isCreateModalOpen, setIsCreateModalOpen] = useState(false);
   const lastScrollY = useRef(0);
@@ -197,10 +197,10 @@ export default function App() {
   useEffect(() => {
     const loadData = async () => {
       setViewState('loading');
-      
+
       // Simulate network delay
       await new Promise(resolve => setTimeout(resolve, 1500));
-      
+
       // Always show content for demo
       setViewState('content');
       setPlaces(MOCK_PLACES);
@@ -212,7 +212,7 @@ export default function App() {
 
   // Filter places by category
   useEffect(() => {
-    if (selectedCategory === '全部') {
+    if (selectedCategory === 'all') {
       setFilteredPlaces(places);
     } else {
       const filtered = places.filter(place => {
@@ -236,10 +236,10 @@ export default function App() {
   useEffect(() => {
     const handleScroll = () => {
       if (!scrollContainerRef.current) return;
-      
+
       const currentScrollY = scrollContainerRef.current.scrollTop;
       const scrollingDown = currentScrollY > lastScrollY.current && currentScrollY > 50;
-      
+
       setIsDockVisible(!scrollingDown);
       lastScrollY.current = currentScrollY;
     };
@@ -295,7 +295,7 @@ export default function App() {
     switch (viewState) {
       case 'loading':
         return <LoadingState />;
-      
+
       case 'empty':
         return (
           <EmptyState
@@ -303,7 +303,7 @@ export default function App() {
             onSearchClick={() => setIsSearchOpen(true)}
           />
         );
-      
+
       case 'error':
         return (
           <ErrorState
@@ -315,7 +315,7 @@ export default function App() {
             }}
           />
         );
-      
+
       case 'content':
         return (
           <MasonryGrid
@@ -323,7 +323,7 @@ export default function App() {
             onPlaceClick={handlePlaceClick}
           />
         );
-      
+
       default:
         return null;
     }
@@ -351,13 +351,13 @@ export default function App() {
             selectedLocation={selectedLocation}
             onLocationClick={() => setIsLocationOpen(true)}
           />
-          
+
           {/* Fixed Category Filter */}
           <CategoryFilter
             selectedCategory={selectedCategory}
             onCategorySelect={setSelectedCategory}
           />
-          
+
           {/* Scrollable Content */}
           <div
             ref={scrollContainerRef}

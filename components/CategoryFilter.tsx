@@ -2,8 +2,8 @@ import React from 'react';
 import { Coffee, Book, Wine, Palette, Mountain, ShoppingBag, Utensils, Music, Camera, Sparkles, Building2, TreePine, Waves } from 'lucide-react';
 
 interface CategoryFilterProps {
-  selectedCategory: string | null;
-  onCategorySelect: (category: string | null) => void;
+  selectedCategory: string;
+  onCategorySelect: (category: string) => void;
 }
 
 const CATEGORIES = [
@@ -28,21 +28,20 @@ export function CategoryFilter({ selectedCategory, onCategorySelect }: CategoryF
     <div className="bg-background relative">
       {/* Left Fade */}
       <div className="absolute left-0 top-0 bottom-0 w-6 bg-gradient-to-r from-background to-transparent pointer-events-none z-10" />
-      
+
       {/* Scrollable Categories */}
       <div className="flex gap-2 px-6 py-3 overflow-x-auto scrollbar-hide">
         {CATEGORIES.map(({ id, label, icon: Icon }) => {
-          const isSelected = selectedCategory === (id === 'all' ? null : id);
-          
+          const isSelected = selectedCategory === id || (id === 'all' && selectedCategory === 'all');
+
           return (
             <button
               key={id}
-              onClick={() => onCategorySelect(id === 'all' ? null : id)}
-              className={`flex items-center gap-2 px-4 py-2 rounded-full text-sm whitespace-nowrap transition-all duration-300 flex-shrink-0 ${
-                isSelected
-                  ? 'bg-primary text-primary-foreground shadow-md'
-                  : 'bg-secondary text-secondary-foreground hover:bg-accent'
-              }`}
+              onClick={() => onCategorySelect(id)}
+              className={`flex items-center gap-2 px-4 py-2 rounded-full text-sm whitespace-nowrap transition-all duration-300 flex-shrink-0 ${isSelected
+                ? 'bg-primary text-primary-foreground shadow-md'
+                : 'bg-secondary text-secondary-foreground hover:bg-accent'
+                }`}
             >
               {Icon && <Icon className="w-4 h-4" />}
               <span>{label}</span>
@@ -50,7 +49,7 @@ export function CategoryFilter({ selectedCategory, onCategorySelect }: CategoryF
           );
         })}
       </div>
-      
+
       {/* Right Fade */}
       <div className="absolute right-0 top-0 bottom-0 w-6 bg-gradient-to-l from-background to-transparent pointer-events-none z-10" />
     </div>

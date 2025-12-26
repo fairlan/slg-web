@@ -11,7 +11,7 @@ import {
   PlaceViewEmpty,
   PlaceViewError,
 } from './PlaceViewStates';
-import { toast } from 'sonner@2.0.3';
+import { toast } from 'sonner';
 
 export interface PlaceData {
   id: string;
@@ -142,7 +142,7 @@ export function PlaceView({ placeId, onBack, onModalStateChange }: PlaceViewProp
     fetchPlaceData();
   }, [placeId]);
 
-  const handleMomentClick = (moment: typeof MOCK_MOMENTS[0]) => {
+  const handleMomentClick = (moment: EasterEgg) => {
     if (moment.isLocked) {
       toast.info('解锁 Moment', {
         description: `需要前往 ${moment.distance}m 处才能解锁`,

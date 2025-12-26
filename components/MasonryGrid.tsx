@@ -7,7 +7,7 @@ interface Place {
   category: string;
   coverImage: string;
   location: string;
-  rating?: number;
+  rating: number;
   kolCount: number;
   friendCount: number;
   visitorCount: number;
@@ -28,7 +28,7 @@ export function MasonryGrid({ places, onPlaceClick }: MasonryGridProps) {
           // Create visual rhythm with different sizes
           const isLarge = index % 7 === 0; // Every 7th item is large
           const isFullWidth = isLarge;
-          
+
           return (
             <div
               key={place.id}
