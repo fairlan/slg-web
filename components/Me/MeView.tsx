@@ -7,6 +7,9 @@ import { ContentGrid } from './ContentGrid';
 import { MapView } from './MapView';
 import { MenuView } from './MenuView';
 import { MeLoading, MeEmpty, MeError } from './MeStates';
+import { CinematicIntro } from '../Onboarding/CinematicIntro';
+import { SignInScreen } from '../Onboarding/SignInScreen';
+import { PermissionScreen } from '../Onboarding/PermissionScreen';
 
 export interface UserProfile {
   id: string;
@@ -230,8 +233,8 @@ export function MeView({ onPlaceClick }: MeViewProps) {
 
           {/* Smart Filter & Content */}
           <div className="px-6 space-y-4">
-            <SmartFilter 
-              items={data.items} 
+            <SmartFilter
+              items={data.items}
               onFilteredItems={setFilteredItems}
               viewMode={viewMode}
               onViewModeChange={setViewMode}
@@ -251,11 +254,6 @@ export function MeView({ onPlaceClick }: MeViewProps) {
 // Onboarding Content Component
 function OnboardingContent({ onClose }: { onClose: () => void }) {
   const [currentStep, setCurrentStep] = useState<'intro' | 'signin' | 'permission' | 'complete'>('intro');
-  
-  // Import the onboarding components
-  const { CinematicIntro } = require('../Onboarding/CinematicIntro');
-  const { SignInScreen } = require('../Onboarding/SignInScreen');
-  const { PermissionScreen } = require('../Onboarding/PermissionScreen');
 
   const handleComplete = () => {
     onClose();
@@ -278,14 +276,14 @@ function OnboardingContent({ onClose }: { onClose: () => void }) {
           onSkip={() => setCurrentStep('signin')}
         />
       )}
-      
+
       {currentStep === 'signin' && (
         <SignInScreen
           onSignInSuccess={() => setCurrentStep('permission')}
           onSkip={handleComplete}
         />
       )}
-      
+
       {currentStep === 'permission' && (
         <PermissionScreen
           onAllow={handleComplete}
